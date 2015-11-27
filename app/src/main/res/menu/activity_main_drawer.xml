@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home32"
+            android:title="Главная" />
+        <item
+            android:id="@+id/nav_agencies"
+            android:icon="@drawable/ic_agent32"
+            android:title="Агенты и агенства" />
+        <item
+            android:id="@+id/nav_hotels"
+            android:icon="@drawable/ic_hotel32"
+            android:title="Гостиницы" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_star32"
+            android:title="Избранное" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_question"
+                android:icon="@drawable/ic_question32"
+                android:title="ЧаВо" />
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/ic_info32"
+                android:title="О приложении" />
+            <item
+                android:id="@+id/nav_legal"
+                android:icon="@drawable/ic_legal32"
+                android:title="Правила и условия" />
+        </menu>
+    </item>
+
+</menu>
