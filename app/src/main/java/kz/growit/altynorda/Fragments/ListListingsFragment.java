@@ -2,6 +2,7 @@ package kz.growit.altynorda.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -53,7 +54,7 @@ public class ListListingsFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeLayoutListLFSRL);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.listListingsFragmentRV);
 
-        getData();
+//        getData();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -68,11 +69,21 @@ public class ListListingsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(myAdapter);
 
+
+
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
     private void getData() {
+        swipeRefreshLayout.setRefreshing(true);
         listings.clear();
+        SaveSharedPreferences.setPrefCityId(getActivity().getApplicationContext(), 1);
         String url = "http://altynorda.kz/ListingsAPI/GetCityListings?cityId=" + SaveSharedPreferences.getPrefCityId(getActivity().getApplicationContext());
         JsonArrayRequest getListings = new JsonArrayRequest(
                 Request.Method.GET,

@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import kz.growit.altynorda.Fragments.FavoritesFragment;
 import kz.growit.altynorda.Fragments.ListListingsFragment;
 import kz.growit.altynorda.Fragments.MapListingsFragment;
 

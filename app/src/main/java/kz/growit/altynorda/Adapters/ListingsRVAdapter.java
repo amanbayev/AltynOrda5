@@ -123,12 +123,12 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
     public void showListing(int id, Listings listings) {
         SaveSharedPreferences.setPrefListingId(activity.getApplicationContext(), id);
         SaveSharedPreferences.setPrefSelectedListingJson(activity.getApplicationContext(), listings);
-        Listings temp = SaveSharedPreferences.getPrefSelectedListingJSON(activity.getApplicationContext());
+
         MainActivity mainActivity = (MainActivity) activity;
         Fragment fragment = new DetailListingFragment();
         mainActivity.getSupportFragmentManager().beginTransaction()
-                .addToBackStack(fragment.getClass().getSimpleName())
-                .replace(R.id.container, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack("DetailListingFragment")
+                .replace(R.id.container, fragment, "DetailListingFragment")
                 .commit();
     }
 

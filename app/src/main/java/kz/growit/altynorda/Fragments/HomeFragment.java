@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.homeTabLayout);
+        final TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.homeTabLayout);
 
         tabLayout.addTab(tabLayout.newTab().setText("СПИСОК"));
         tabLayout.addTab(tabLayout.newTab().setText("Карта"));
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         final ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.homeVP);
 
         final HomePagerAdapter adapter = new HomePagerAdapter
-                (activity.getSupportFragmentManager(), tabLayout.getTabCount());
+                (getChildFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

@@ -41,4 +41,56 @@ public class Comments {
             e.printStackTrace();
         }
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public int getListingId() {
+        return ListingId;
+    }
+
+    public String getText() {
+        return Text;
+    }
+
+    public String getAuthorId() {
+        return AuthorId;
+    }
+
+    public String getPendingDate() {
+        return PendingDate;
+    }
+
+    public String getApprovedDate() {
+        return ApprovedDate;
+    }
+
+    public String getRejectedDate() {
+        return RejectedDate;
+    }
+
+    public String getLastUpdate() {
+        return LastUpdate;
+    }
+
+    public String getCreatedDate() {
+        return CreatedDate;
+    }
+
+    public String getReplyAuthorId() {
+        return ReplyAuthorId;
+    }
+
+    public String getParentId() {
+        return ParentId;
+    }
+
+    public ArrayList<Comments> getChildCommentList() {
+        return ChildCommentList;
+    }
+
+    public boolean isEnabled() {
+        return Enabled;
+    }
 }

@@ -49,7 +49,7 @@ public class SaveSharedPreferences {
 
     public static void setPrefListingId(Context ctx, int selectedCityId) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putInt(PREF_CITY_ID, selectedCityId);
+        editor.putInt(PREF_LISTING_ID, selectedCityId);
         editor.apply();
     }
 
