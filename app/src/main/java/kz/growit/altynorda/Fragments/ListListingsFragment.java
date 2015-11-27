@@ -2,6 +2,7 @@ package kz.growit.altynorda.Fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import kz.growit.altynorda.Adapters.ListingsRVAdapter;
+import kz.growit.altynorda.MainActivity;
 import kz.growit.altynorda.Models.Listings;
 import kz.growit.altynorda.R;
 import kz.growit.altynorda.singleton.AppController;
@@ -45,6 +47,7 @@ public class ListListingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_list_listings, container, false);
 
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeLayoutListLFSRL);

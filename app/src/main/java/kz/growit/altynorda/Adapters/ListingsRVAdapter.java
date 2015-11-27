@@ -1,7 +1,9 @@
 package kz.growit.altynorda.Adapters;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +29,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kz.growit.altynorda.Fragments.DetailListingFragment;
+import kz.growit.altynorda.MainActivity;
 import kz.growit.altynorda.Models.Listings;
 import kz.growit.altynorda.R;
 import kz.growit.altynorda.singleton.AppController;
+import kz.growit.altynorda.utils.SaveSharedPreferences;
 
 /**
  * Created by Талгат on 27.11.2015.
@@ -43,7 +48,6 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
     public ListingsRVAdapter(ArrayList<Listings> listings, Activity activity) {
         this.activity = activity;
         this.listings = listings;
-//        this.listing = listing;
     }
 
     @Override
@@ -61,18 +65,22 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
         holder.username.setText(item.getUsername());
         holder.username.setTextColor(activity.getResources().getColor(R.color.colorAccent));
         holder.address.setText(item.getAddress());
-        holder.totalArea.setText(item.getTotalArea());
-//        holder.RoomCount.setText(item.getRoomCount());
+        String areaTXT = item.getTotalArea() + " " + Html.fromHtml("м&#8306;");
+        holder.totalArea.setText(areaTXT);
+        String kitchenTxt = item.getKitchenArea() + " " + Html.fromHtml("м&#8306;");
+        holder.Kitchen.setText(kitchenTxt);
+        holder.RoomCount.setText(String.valueOf(item.getRoomCount()));
         holder.Price.setText(item.getPrice());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity.getApplicationContext(), "Lol", Toast.LENGTH_SHORT).show();
+                showListing(item.getId(), item);
             }
         });
 
         holder.Id = item.getId();
-
+        String floorTXT = item.getFloor() + "/" + item.getTotalFloors();
+        holder.floor.setText(floorTXT);
         holder.thumb.removeAllSliders();
 
         for (int i = 0; i < item.getAllPictures().size(); i++) {
@@ -82,13 +90,12 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
                 dsv.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                     @Override
                     public void onSliderClick(BaseSliderView slider) {
-                        Toast.makeText(activity.getApplicationContext(), "Lol", Toast.LENGTH_SHORT).show();
+                        showListing(item.getId(), item);
                     }
                 });
                 holder.thumb.addSlider(dsv);
             }
         }
-
 
 //        SharedPreferences loginPrefs = activity.getSharedPreferences("LoginPrefs", 0);
 //        token = loginPrefs.getString("Token", "not logged in");
@@ -113,6 +120,17 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
 //        });
     }
 
+    public void showListing(int id, Listings listings) {
+        SaveSharedPreferences.setPrefListingId(activity.getApplicationContext(), id);
+        SaveSharedPreferences.setPrefSelectedListingJson(activity.getApplicationContext(), listings);
+        Listings temp = SaveSharedPreferences.getPrefSelectedListingJSON(activity.getApplicationContext());
+        MainActivity mainActivity = (MainActivity) activity;
+        Fragment fragment = new DetailListingFragment();
+        mainActivity.getSupportFragmentManager().beginTransaction()
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .replace(R.id.container, fragment, fragment.getClass().getSimpleName())
+                .commit();
+    }
 
     public void addToBookmarkRequest(int listingId, String token) {
         JSONObject data = new JSONObject();
@@ -230,7 +248,7 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
     }
 
     public static class ListingsRVViewHolder extends RecyclerView.ViewHolder {
-        private TextView username, address, totalArea, RoomCount, Price;
+        private TextView username, address, totalArea, RoomCount, Price, Kitchen, floor;
         private SliderLayout thumb;
         private ImageButton favorite;
         private CardView cardView;
@@ -243,8 +261,10 @@ public class ListingsRVAdapter extends RecyclerView.Adapter<ListingsRVAdapter.Li
             super(itemView);
 
             cardView = (CardView) itemView.findViewById(R.id.card_view_my_listing_card_layout);
+            Kitchen = (TextView) itemView.findViewById(R.id.kitchenTextViewListingRow);
             thumb = (SliderLayout) itemView.findViewById(R.id.thumbnailImageViewListingRow);
             username = (TextView) itemView.findViewById(R.id.usernameTVListingRow);
+            floor = (TextView) itemView.findViewById(R.id.floorTextViewListingRow);
             address = (TextView) itemView.findViewById(R.id.addressTextViewListingRow);
             totalArea = (TextView) itemView.findViewById(R.id.areaTextViewListingRow);
             RoomCount = (TextView) itemView.findViewById(R.id.roomsTextViewListingRow);

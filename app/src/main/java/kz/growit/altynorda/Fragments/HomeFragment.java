@@ -2,6 +2,7 @@ package kz.growit.altynorda.Fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -24,6 +25,7 @@ public class HomeFragment extends Fragment {
     private MainActivity activity;
     private RelativeLayout cityRL;
     private ImageView filtersIV;
+    private FloatingActionButton fab;
 
 
     public HomeFragment() {
@@ -61,10 +63,14 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        fab = activity.fab;
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 0) fab.setVisibility(View.VISIBLE);
+                else fab.setVisibility(View.GONE);
             }
 
             @Override
