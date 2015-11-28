@@ -1,4 +1,5 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -56,161 +57,128 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/manyLLsLL"
+        <TextView
+            android:id="@+id/usernameDetailFragmentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/addressDetailFragmentTV"
             android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:text="123124124"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/colorPrimaryDark" />
 
-            <TextView
-                android:id="@+id/descriptionDetailFragmentTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem Ipsum Dolor Bullshit" />
-
-            <TextView
-                android:id="@+id/usernameDetailFragmentTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="123123123"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/paramKey1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test key:" />
-
-                <TextView
-                    android:id="@+id/paramValue1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/paramKey2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test key:" />
-
-                <TextView
-                    android:id="@+id/paramValue2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/paramKey3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test key:" />
-
-                <TextView
-                    android:id="@+id/paramValue3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/paramKey4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test key:" />
-
-                <TextView
-                    android:id="@+id/paramValue4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/paramKey5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test key:" />
-
-                <TextView
-                    android:id="@+id/paramValue5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test value" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/paramKey6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test key:" />
-
-                <TextView
-                    android:id="@+id/paramValue6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="test value" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/commentsDetailFragmentRV"
+        <TextView
+            android:id="@+id/descriptionDetailFragmentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/manyLLsLL" />
+            android:layout_below="@id/usernameDetailFragmentTV"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp" />
+
+        <LinearLayout
+            android:id="@+id/showLVDetailFragmentLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionDetailFragmentTV"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/expandingDetailFragmentTV"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="8"
+                android:gravity="center"
+                android:text="Удобства (развернуть)"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="2"
+                android:src="@drawable/ic_arrow_blue_16_down" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/booleansDetailFragmentLV"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/showLVDetailFragmentLL"
+            android:layout_margin="16dp" />
+
+        <LinearLayout
+            android:id="@+id/showCommentsDetailFragmentLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/booleansDetailFragmentLV"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/expanding2DetailFragmentTV"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="8"
+                android:gravity="center"
+                android:text="Комментарии (развернуть)"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="2"
+                android:src="@drawable/ic_arrow_blue_16_down" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commentsDFLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/showCommentsDetailFragmentLL"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/commentsDetailFragmentRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="8">
+
+                <EditText
+                    android:id="@+id/commentTextDetailFragmentET"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:imeOptions="actionDone"
+                    android:textColor="#FFFFFF" />
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/sendCommentDetailFragmentReyButton"
+                    style="@style/Material.Drawable.Ripple.Wave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:imeOptions="actionDone"
+                    android:text="Отпр."
+                    app:rd_enable="true" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

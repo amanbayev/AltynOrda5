@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.util.ArrayList;
 
 import kz.growit.altynorda.Models.Comments;
 import kz.growit.altynorda.R;
+import kz.growit.altynorda.singleton.AppController;
 
 public class CommentsRVAdapter extends RecyclerView.Adapter<CommentsRVAdapter.CommentViewHolder> {
     private ArrayList<Comments> comments;
@@ -35,6 +38,9 @@ public class CommentsRVAdapter extends RecyclerView.Adapter<CommentsRVAdapter.Co
     public void onBindViewHolder(CommentViewHolder holder, int position) {
         Comments temp = comments.get(position);
         holder.commentText.setText(temp.getText());
+        holder.thumb.setImageUrl(temp.getImageUrl(), AppController.getInstance().getImageLoader());
+        holder.name.setText(temp.getCommentatorName());
+        holder.timestamp.setText(temp.getFormattedDate());
     }
 
     @Override
@@ -43,11 +49,15 @@ public class CommentsRVAdapter extends RecyclerView.Adapter<CommentsRVAdapter.Co
     }
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
-        private TextView commentText;
+        private TextView commentText, name, timestamp;
+        private NetworkImageView thumb;
 
         public CommentViewHolder(View itemView) {
             super(itemView);
             commentText = (TextView) itemView.findViewById(R.id.commentTextCommentRowTV);
+            thumb = (NetworkImageView) itemView.findViewById(R.id.commentatorThumbNIV);
+            name = (TextView) itemView.findViewById(R.id.commentatorNameTV);
+            timestamp = (TextView) itemView.findViewById(R.id.timestampCommentatorTV);
         }
     }
 }

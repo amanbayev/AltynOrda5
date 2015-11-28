@@ -3,7 +3,9 @@ package kz.growit.altynorda.Models;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Талгат on 27.11.2015.
@@ -12,24 +14,29 @@ public class Comments {
     private int Id, ListingId;
     private String Text, AuthorId, PendingDate, ApprovedDate, RejectedDate, LastUpdate, CreatedDate,
             ReplyAuthorId, ParentId;
+    private Profile profile;
     private ArrayList<Comments> ChildCommentList = new ArrayList<>();
     private boolean Enabled;
 
     public Comments(JSONObject resp) {
         try {
-            this.Id = resp.getInt("Id");
-            this.ListingId = resp.getInt("ListingId");
-            this.Text = resp.getString("Text");
-            this.AuthorId = resp.getString("AuthorId");
-            this.ReplyAuthorId = resp.getString("ReplyAuthorId");
-            this.PendingDate = resp.getString("PendingDate");
-            this.ApprovedDate = resp.getString("ApprovedDate");
-            this.RejectedDate = resp.getString("RejectedDate");
-            this.LastUpdate = resp.getString("LastUpdate");
-            this.CreatedDate = resp.getString("CreatedDate");
-            this.ParentId = resp.getString("ParentId");
-            this.Enabled = resp.getBoolean("Enabled");
-            String childCommentsStr = resp.getString("ChildCommentList");
+            this.Id = resp.optInt("Id", 0);
+            this.ListingId = resp.optInt("ListingId", 0);
+            this.Text = resp.optString("Text", "");
+            this.AuthorId = resp.optString("AuthorId", "");
+            this.ReplyAuthorId = resp.optString("ReplyAuthorId", "");
+            this.PendingDate = resp.optString("PendingDate", "");
+            this.ApprovedDate = resp.optString("ApprovedDate", "");
+            this.RejectedDate = resp.optString("RejectedDate", "");
+            this.LastUpdate = resp.optString("LastUpdate", "");
+            String dateStr = resp.optString("CreatedDate", "");
+            dateStr = dateStr.substring(6, dateStr.length() - 2);
+            this.CreatedDate = dateStr;
+            this.ParentId = resp.optString("ParentId", "");
+            JSONObject profileJS = resp.optJSONObject("Profile");
+            this.profile = new Profile(profileJS);
+            this.Enabled = resp.optBoolean("Enabled", false);
+            String childCommentsStr = resp.optString("ChildCommentList", "");
             if (!childCommentsStr.equals("null")) {
                 JSONArray childComments = new JSONArray(childCommentsStr);
                 for (int i = 0; i < childComments.length(); i++) {
@@ -40,6 +47,23 @@ public class Comments {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Date getDate() {
+        return new Date(Long.valueOf(this.CreatedDate));
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        return sdf.format(this.getDate());
+    }
+
+    public String getImageUrl() {
+        return "http://altynorda.kz" + this.profile.getImageFileName();
+    }
+
+    public String getCommentatorName() {
+        return this.profile.getFirstname() + " " + this.profile.getLastname();
     }
 
     public int getId() {

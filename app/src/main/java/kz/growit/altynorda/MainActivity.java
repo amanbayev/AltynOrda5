@@ -1,5 +1,6 @@
 package kz.growit.altynorda;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,8 +17,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
+
+import java.io.IOException;
+
 import kz.growit.altynorda.Fragments.FavoritesFragment;
 import kz.growit.altynorda.Fragments.HomeFragment;
+import kz.growit.altynorda.utils.SaveSharedPreferences;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,6 +72,25 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(fragment.getClass().getSimpleName())
                 .replace(R.id.container, fragment, fragment.getClass().getSimpleName())
                 .commit();
+
+        MyTask mt = new MyTask();
+        mt.execute();
+    }
+
+    class MyTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
+            String token = null;
+            try {
+                token = instanceID.getToken("807020885211", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            SaveSharedPreferences.setPrefToken(getApplicationContext(), token);
+            //fRg1xjwM5H8:APA91bEjEAtJ1xlod4VO2YPWi15e3inGvlKg-1bwFHvUNOhRiSioXfL3qCO_MkaKqKgeHM2dQ8i_gum3s0yNLi8YMh8h-jVENSpV4GE_xiJ0IkSedtAcVVou3G_2r-6NGnfOoZq_Mqx2
+            return token;
+        }
     }
 
     @Override

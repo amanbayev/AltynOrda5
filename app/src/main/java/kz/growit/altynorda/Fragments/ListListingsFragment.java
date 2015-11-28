@@ -1,6 +1,8 @@
 package kz.growit.altynorda.Fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import kz.growit.altynorda.Adapters.ListingsRVAdapter;
+import kz.growit.altynorda.LoginActivity;
 import kz.growit.altynorda.MainActivity;
 import kz.growit.altynorda.Models.Listings;
 import kz.growit.altynorda.R;
@@ -24,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +73,8 @@ public class ListListingsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(myAdapter);
 
-
+//        Intent goToLogin = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+//        getActivity().startActivity(goToLogin);
 
         return rootView;
     }
@@ -92,9 +97,11 @@ public class ListListingsFragment extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        sendNotif();
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 swipeRefreshLayout.setRefreshing(false);
+
                                 Listings temp = new Listings(response.getJSONObject(i));
                                 listings.add(temp);
                                 myAdapter.notifyDataSetChanged();
@@ -114,4 +121,38 @@ public class ListListingsFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(getListings, "get listings");
     }
 
+    private void sendNotif() {
+        String url = "http://altynorda.kz/PushNotificationAPI/SendNotification";
+        JSONObject data = new JSONObject();
+        Context ctx = getActivity().getApplicationContext();
+        try {
+            data.put("token", "8b77fd5b-bf4d-4de6-bddf-6a2dbea06adc");
+            String token = SaveSharedPreferences.getPrefToken(ctx);
+            data.put("deviceRegIds", "[\"fRg1xjwM5H8:APA91bEjEAtJ1xlod4VO2YPWi15e3inGvlKg-1bwFHvUNOhRiSioXfL3qCO_MkaKqKgeHM2dQ8i_gum3s0yNLi8YMh8h-jVENSpV4GE_xiJ0IkSedtAcVVou3G_2r-6NGnfOoZq_Mqx2\"]");
+            data.put("message", "msg blah blah");
+            data.put("title", "title goes here");
+
+            JsonObjectRequest sendPushReq = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    data,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String ok = response.toString();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    }
+            );
+            AppController.getInstance().addToRequestQueue(sendPushReq, "send push");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
